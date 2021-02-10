@@ -126,3 +126,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Data Set
+review_rebuttal_pair_dataset/
+review_rebuttal_pair_dataset_debug/
+
+sample_project/test-glue
+sample_project/test-dir
