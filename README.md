@@ -2,27 +2,32 @@
 
 ## Setup
 
+0. If you are in IESL and using blake.cs.umass.edu, please run `module load python3/3.9.1-2102` first, without which it is possible that Stanza won't work.
+
 1. Set up a Python virtual environment and download Stanza models (So now you don't have to do the CoreNLP stuff)
 ```
 python3 -m venv iddve
 source iddve/bin/activate
-python -m pip install -r mini_requirements.txt
+python -m pip install -r requirements/mini_requirements.txt
 
 python -c "import stanza; stanza.download('en')"
 ```
 
 2. Run code to create datasets
 ```
-python build_pair_datasets.py
+python build_pair_datasets.py [--debug]
 ```
+Adding the `--debug` flag creates smaller datasets, better for viewing and testing. They are created in a folder whose name ends in `_debug`.
 
-To build a smaller version of the dataset for viewing and testing, add `--debug`:
+3. Verify the built datasets
 
+To compare the checksums of your generated with the originals, run
 ```
-python build_pair_datasets.py --debug
+python check.py [--debug]
 ```
+The `--debug` flag checks the files created using the debug flag in step 2.
 
-This will create smaller datasets, and add them in a folder whose name ends in `_debug`.
+If you don't get 'OK' for all the files... uhh, for now, ask Neha what to do about it
 
 ## Data format
 
@@ -37,13 +42,15 @@ iclr-discourse-dataset
 │   │   traindev_dev.json
 │   │   traindev_test.json
 │   │   truetest.json
+|
 └─── review_rebuttal_pair_dataset_debug/ # if you ran with --debug as well
 │   │   unstructured.json # These files will be much smaller
 │   │   traindev_train.json
 │   │   traindev_dev.json
 │   │   traindev_test.json
 │   │   truetest.json
-│   ... other ...
+│   
+|   ... other ...
 │   ... stuff ...
 
 ```
